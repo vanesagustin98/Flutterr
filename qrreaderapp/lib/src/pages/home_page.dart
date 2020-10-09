@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:qrreaderapp1/src/bloc/scans_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:qrreaderapp1/src/models/scan_model.dart';
 
 import 'package:qrreaderapp1/src/pages/direcciones_page.dart';
 import 'package:qrreaderapp1/src/pages/mapas_page.dart';
+import 'package:qrreaderapp1/src/utils/utils.dart' as utils;
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,28 +32,36 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: _crearBottomNavigationBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
-        onPressed: _scanQR,
+        onPressed: () => _scanQR(context),
         child: Icon(Icons.filter_center_focus),
         backgroundColor: Theme.of(context).primaryColor,
       ),
     );
   }
 
-  _scanQR() async {
+  _scanQR(BuildContext context) async {
     // https://fernando-herrera.com
     // geo:40.69716778063721,-73.86586561640628
-    // dynamic futureString = '';
-    dynamic futureString = 'https://fernando-herrera.com';
 
-    // try {
-    //   futureString = await BarcodeScanner.scan();
-    // } catch (e) {
-    //   futureString = e.toString();
-    // }
+    dynamic futureString;
+
+    try {
+      futureString = await BarcodeScanner.scan();
+    } catch (e) {
+      futureString = e.toString();
+    }
 
     if (futureString != null) {
       final scan = ScanModel(valor: futureString);
       scansBloc.agregarScan(scan);
+
+      if (Platform.isIOS) {
+        Future.delayed(Duration(milliseconds: 750), () {
+          utils.abrirScan(context, scan);
+        });
+      } else {
+        utils.abrirScan(context, scan);
+      }
     }
   }
 

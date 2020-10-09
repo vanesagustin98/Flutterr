@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:qrreaderapp1/src/bloc/scans_bloc.dart';
 import 'package:qrreaderapp1/src/models/scan_model.dart';
+import 'package:qrreaderapp1/src/utils/utils.dart' as utils;
 
 class MapasPage extends StatelessWidget {
   final scansBloc = new ScansBloc();
+
   @override
   Widget build(BuildContext context) {
+    scansBloc.obtenerScans();
     return StreamBuilder<List<ScanModel>>(
       stream: scansBloc.scansStream,
       builder: (BuildContext context, AsyncSnapshot<List<ScanModel>> snapshot) {
@@ -29,7 +32,7 @@ class MapasPage extends StatelessWidget {
               onDismissed: (direction) => scansBloc.borrarScan(scans[i].id),
               child: ListTile(
                 leading: Icon(
-                  Icons.cloud_queue,
+                  Icons.map,
                   color: Theme.of(context).primaryColor,
                 ),
                 title: Text(scans[i].valor),
@@ -38,6 +41,7 @@ class MapasPage extends StatelessWidget {
                   Icons.keyboard_arrow_right,
                   color: Colors.grey,
                 ),
+                onTap: () => utils.abrirScan(context, scans[i]),
               )),
           itemCount: scans.length,
         );
