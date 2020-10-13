@@ -145,22 +145,32 @@ class _ProductoPageState extends State<ProductoPage> {
 
   Widget _mostrarFoto() {
     if (producto.fotoUrl != null) {
-      //TODO: tengo que hacer esto
       return Container();
     } else {
-      return Image(
-        image: AssetImage(foto?.path ?? 'assets/no-image.png'),
-        height: 300.0,
-        fit: BoxFit.cover,
-      );
+      if (foto != null) {
+        return Image.file(
+          foto,
+          fit: BoxFit.cover,
+          height: 300.0,
+        );
+      }
+      return Image.asset('assets/no-image.png');
     }
   }
 
   _seleccionarFoto() async {
+    _procesarImagen(ImageSource.gallery);
+  }
+
+  _tomarFoto() async {
+    _procesarImagen(ImageSource.camera);
+  }
+
+  _procesarImagen(ImageSource origen) async {
     final _picker = ImagePicker();
 
     final pickedFile = await _picker.getImage(
-      source: ImageSource.gallery,
+      source: origen,
     );
 
     if (pickedFile != null) {
@@ -173,6 +183,4 @@ class _ProductoPageState extends State<ProductoPage> {
 
     setState(() {});
   }
-
-  _tomarFoto() {}
 }
