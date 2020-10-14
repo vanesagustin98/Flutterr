@@ -103,7 +103,7 @@ class _ProductoPageState extends State<ProductoPage> {
     );
   }
 
-  void _sumbit() {
+  void _sumbit() async {
     if (!formKey.currentState.validate()) return;
 
     formKey.currentState.save();
@@ -111,6 +111,10 @@ class _ProductoPageState extends State<ProductoPage> {
     setState(() {
       _guardando = true;
     });
+
+    if (foto != null) {
+      producto.fotoUrl = await productoProvider.subirImage(foto);
+    } else {}
 
     if (producto.id == null) {
       productoProvider.crearProducto(producto);
@@ -145,7 +149,12 @@ class _ProductoPageState extends State<ProductoPage> {
 
   Widget _mostrarFoto() {
     if (producto.fotoUrl != null) {
-      return Container();
+      return FadeInImage(
+        placeholder: AssetImage('assets/jar-loading.gif'),
+        image: NetworkImage(producto.fotoUrl),
+        height: 300.0,
+        fit: BoxFit.contain,
+      );
     } else {
       if (foto != null) {
         return Image.file(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:formvalidation/src/bloc/provider.dart';
+//import 'package:formvalidation/src/bloc/provider.dart';
 import 'package:formvalidation/src/models/producto_model.dart';
 import 'package:formvalidation/src/providers/productos_providers.dart';
 
@@ -13,7 +13,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = Provider.of(context);
+    //final bloc = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -61,14 +61,29 @@ class _HomePageState extends State<HomePage> {
       onDismissed: (direccion) {
         productosProvider.borrarProducto(producto.id);
       },
-      child: ListTile(
-        title: Text('${producto.titulo} - ${producto.valor}'),
-        subtitle: Text(producto.id),
-        onTap: () =>
-            Navigator.pushNamed(context, 'producto', arguments: producto)
-                .then((value) {
-          setState(() {});
-        }),
+      child: Card(
+        child: Column(
+          children: [
+            (producto.fotoUrl == null)
+                ? Image(image: AssetImage('assets/no-image.png'))
+                : FadeInImage(
+                    placeholder: AssetImage('assets/jar-loading.gif'),
+                    image: NetworkImage(producto.fotoUrl),
+                    height: 300.0,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+            ListTile(
+              title: Text('${producto.titulo} - ${producto.valor}'),
+              subtitle: Text(producto.id),
+              onTap: () =>
+                  Navigator.pushNamed(context, 'producto', arguments: producto)
+                      .then((value) {
+                setState(() {});
+              }),
+            )
+          ],
+        ),
       ),
     );
   }
