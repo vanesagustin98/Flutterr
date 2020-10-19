@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "65458449288",
+    "firebase_url": "https://flutter-push-ad066.firebaseio.com",
+    "project_id": "flutter-push-ad066",
+    "storage_bucket": "flutter-push-ad066.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:65458449288:android:5d6d3aa93ddee20ddb283d",
+        "android_client_info": {
+          "package_name": "com.vanessagustin.pushappudemy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "65458449288-b2todqniuipnb2vptuf03dcs9mdhqrcc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vanessagustin.pushappudemy",
+            "certificate_hash": "4ef4de547ef77ea23ea8e28d6adba83e8d41138a"
+          }
+        },
+        {
+          "client_id": "65458449288-5ed6vse7uljtu719u42n8e7j41dnksoh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDalIhgJafk7hIYj1aJOl4ywj5J-jaAelo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "65458449288-5ed6vse7uljtu719u42n8e7j41dnksoh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
